@@ -36,11 +36,11 @@ const vp = { once: true, amount: 0.2 };
 ───────────────────────────────────────────── */
 function FloatingBlobs() {
   const blobs = [
-    { size: 380, x: '8%',  y: '12%', delay: 0,    color: 'rgba(212,175,55,0.07)'  },
-    { size: 260, x: '78%', y: '5%',  delay: 1.5,  color: 'rgba(74,85,74,0.06)'   },
-    { size: 320, x: '60%', y: '40%', delay: 0.8,  color: 'rgba(212,175,55,0.05)' },
-    { size: 200, x: '20%', y: '65%', delay: 2,    color: 'rgba(180,160,130,0.07)' },
-    { size: 280, x: '85%', y: '72%', delay: 1.2,  color: 'rgba(74,85,74,0.05)'   },
+    { size: 380, x: '8%', y: '12%', delay: 0, color: 'rgba(212,175,55,0.07)' },
+    { size: 260, x: '78%', y: '5%', delay: 1.5, color: 'rgba(74,85,74,0.06)' },
+    { size: 320, x: '60%', y: '40%', delay: 0.8, color: 'rgba(212,175,55,0.05)' },
+    { size: 200, x: '20%', y: '65%', delay: 2, color: 'rgba(180,160,130,0.07)' },
+    { size: 280, x: '85%', y: '72%', delay: 1.2, color: 'rgba(74,85,74,0.05)' },
   ];
 
   return (
@@ -133,7 +133,7 @@ function HeroSection() {
             className="font-serif text-6xl md:text-8xl font-bold text-[#1B2621] leading-none tracking-tight"
           >
             Mrunalini<br />
-            <span className="text-[#4A554A]">Niwali</span>
+            <span className="text-[#4A554A]">Niwal</span>
           </motion.h1>
 
           {/* Decorative line */}
@@ -394,7 +394,7 @@ function HomeFooter() {
   return (
     <footer className="w-full py-10 bg-[#1B2621] text-center flex flex-col items-center gap-2">
       <p className="font-sans text-sm text-white/50 tracking-wide">
-        © 2026 Mrunalini Niwali
+        © 2026 Mrunalini Niwal
       </p>
       <p className="font-sans text-xs text-white/30 italic">
         Created with love, inspired by nature.

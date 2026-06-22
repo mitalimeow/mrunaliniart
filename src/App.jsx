@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import ArtPage from './pages/ArtPage';
 import Footer from './components/Footer';
 
 /* ─── Home layout ─── */
@@ -29,6 +30,18 @@ function AboutLayout() {
   );
 }
 
+/* ─── Art layout ─── */
+function ArtLayout() {
+  return (
+    <div className="min-h-screen w-full relative">
+      <Navbar />
+      <main>
+        <ArtPage />
+      </main>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -36,6 +49,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomeLayout />} />
         <Route path="/about-me" element={<AboutLayout />} />
+        <Route path="/art" element={<ArtLayout />} />
         {/* Placeholder for future pages */}
         <Route path="/:page" element={<HomeLayout />} />
       </Routes>

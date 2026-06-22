@@ -304,7 +304,7 @@ export default function AboutPage() {
             transition={{ duration: 0.7, ease: 'easeOut' }}
             className="text-xs font-sans uppercase tracking-[0.3em] text-stone-400"
           >
-            Mrunalini Niwali
+            Mrunalini Niwal
           </motion.p>
 
           <motion.h1
