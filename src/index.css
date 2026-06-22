@@ -1,0 +1,32 @@
+@import '@fontsource/playfair-display';
+@import '@fontsource/playfair-display/700.css';
+@import '@fontsource/inter';
+@import '@fontsource/inter/300.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/patrick-hand';
+
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #1B2621;
+  --color-sage: #4A554A;
+  --color-gold: #D4AF37;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-hand: "Patrick Hand", cursive;
+}
+
+@layer base {
+  body {
+    color: var(--color-sage);
+    font-family: var(--font-sans);
+    background-image: url('/common_bg.jpg');
+    background-size: 400px;
+    background-attachment: fixed;
+    background-repeat: repeat;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
