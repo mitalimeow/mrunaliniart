@@ -1,25 +1,22 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Gallery from './components/Gallery';
-import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import Footer from './components/Footer';
 
-/* ─── Home layout (hero + gallery + footer) ─── */
+/* ─── Home layout ─── */
 function HomeLayout() {
   return (
     <div className="min-h-screen w-full relative">
       <Navbar />
       <main>
-        <Hero />
-        <Gallery />
+        <HomePage />
       </main>
-      <Footer />
     </div>
   );
 }
 
-/* ─── About layout (about page + footer) ─── */
+/* ─── About layout ─── */
 function AboutLayout() {
   return (
     <div className="min-h-screen w-full relative">
@@ -39,7 +36,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomeLayout />} />
         <Route path="/about-me" element={<AboutLayout />} />
-        {/* Fallback for other nav links (/art, /commissions, /contact) */}
+        {/* Placeholder for future pages */}
         <Route path="/:page" element={<HomeLayout />} />
       </Routes>
     </Router>
