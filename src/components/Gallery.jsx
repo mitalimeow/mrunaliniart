@@ -48,7 +48,7 @@ const Gallery = () => {
               </motion.div>
 
               {/* Text Column */}
-              <motion.div 
+              <motion.div
                 className={`order-2 ${isLeft ? 'md:order-2 md:col-span-8' : 'md:order-1 md:col-span-8'} pt-8 md:pt-20`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

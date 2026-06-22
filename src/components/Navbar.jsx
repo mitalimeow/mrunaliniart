@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const links = ['Home', 'Art', 'Commissions', 'Contact', 'About me'];
@@ -14,13 +15,13 @@ const Navbar = () => {
         {/* Links */}
         <div className="hidden md:flex gap-8">
           {links.map((link) => (
-            <a
+            <Link
               key={link}
-              href={`/${link.toLowerCase().replace(' ', '-')}`}
+              to={`/${link.toLowerCase().replace(' ', '-')}`}
               className="text-sm uppercase tracking-wider text-[#1B2621] hover:text-[#D4AF37] transition-colors duration-300 font-sans"
             >
               {link}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

@@ -14,7 +14,7 @@ const Hero = () => {
           <div className="absolute inset-0 z-0">
             {/* The user mentioned 'acting as the canvas background' for the welcoming image box */}
             <img
-              src="/display3.jpeg"
+              src="/hero_bg.png"
               alt="Welcome Art"
               className="w-full h-full object-cover opacity-90"
             />
