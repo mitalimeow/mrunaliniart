@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ArtPage from './pages/ArtPage';
+import CommissionsPage from './pages/CommissionsPage';
 import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminLayout from './components/AdminLayout';
@@ -50,6 +51,15 @@ function ContactLayout() {
   );
 }
 
+function CommissionsLayout() {
+  return (
+    <div className="min-h-screen w-full relative">
+      <Navbar />
+      <main><CommissionsPage /></main>
+    </div>
+  );
+}
+
 /* ─── App ──────────────────────────────────────────────── */
 function App() {
   return (
@@ -59,6 +69,7 @@ function App() {
         <Route path="/home" element={<HomeLayout />} />
         <Route path="/about-me" element={<AboutLayout />} />
         <Route path="/art" element={<ArtLayout />} />
+        <Route path="/commissions" element={<CommissionsLayout />} />
         <Route path="/contact" element={<ContactLayout />} />
 
         {/* Admin login — no sidebar */}
