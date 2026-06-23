@@ -93,8 +93,11 @@ export default function ContactPage() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
+    
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+    
     try {
-      const res = await fetch('http://localhost:8080/api/enquiry', {
+      const res = await fetch(`${API_URL}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

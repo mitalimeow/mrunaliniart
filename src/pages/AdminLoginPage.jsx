@@ -23,7 +23,8 @@ export default function AdminLoginPage() {
 
   // Auto-redirect if already authenticated
   useEffect(() => {
-    fetch('http://localhost:8080/api/admin/status', { credentials: 'include' })
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+    fetch(`${API_URL}/api/admin/status`, { credentials: 'include' })
       .then(res => {
         if (res.ok) navigate('/mniwal-admin/enquiries', { replace: true });
       })
@@ -36,8 +37,10 @@ export default function AdminLoginPage() {
     setError('');
     if (!p1 || !p2) { setError('Both passwords are required.'); return; }
     setLoading(true);
+    
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
     try {
-      const res = await fetch('http://localhost:8080/api/admin/login', {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

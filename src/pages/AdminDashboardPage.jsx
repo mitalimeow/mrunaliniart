@@ -146,12 +146,14 @@ export default function AdminDashboardPage() {
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+    
     // Guard — verify session before loading
-    fetch('http://localhost:8080/api/admin/status', { credentials: 'include' })
+    fetch(`${API_URL}/api/admin/status`, { credentials: 'include' })
       .then(res => { if (!res.ok) throw new Error(); })
       .catch(() => navigate('/mniwal-admin', { replace: true }));
 
-    fetch('http://localhost:8080/api/admin/enquiries', { credentials: 'include' })
+    fetch(`${API_URL}/api/admin/enquiries`, { credentials: 'include' })
       .then(async res => { 
         if (!res.ok) {
            if (res.status === 401 || res.status === 403) throw new Error('AuthError');
@@ -169,7 +171,8 @@ export default function AdminDashboardPage() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:8080/api/admin/enquiries/${id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      await fetch(`${API_URL}/api/admin/enquiries/${id}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -182,7 +185,8 @@ export default function AdminDashboardPage() {
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
-      await fetch('http://localhost:8080/api/admin/logout', { method: 'POST', credentials: 'include' });
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      await fetch(`${API_URL}/api/admin/logout`, { method: 'POST', credentials: 'include' });
     } catch {}
     navigate('/mniwal-admin', { replace: true });
   };
