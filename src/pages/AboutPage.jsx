@@ -49,7 +49,7 @@ const SectionDivider = () => (
 /* ─── Section: My Story ─── */
 function MyStory() {
   return (
-    <section className="w-full py-24 bg-white">
+    <section className="w-full py-24 bg-transparent">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
         {/* Text — Left */}
@@ -117,7 +117,7 @@ function MyStory() {
 /* ─── Section: My Inspiration ─── */
 function MyInspiration() {
   return (
-    <section className="w-full py-24 bg-stone-50">
+    <section className="w-full py-24 bg-transparent">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
         {/* Image — Left */}
@@ -183,7 +183,7 @@ function MyInspiration() {
 /* ─── Section: My Goals ─── */
 function MyGoals() {
   return (
-    <section className="w-full py-24 bg-white">
+    <section className="w-full py-24 bg-transparent">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
         {/* Text — Left */}
@@ -250,7 +250,7 @@ function MyGoals() {
 /* ─── CTA Section ─── */
 function CTASection() {
   return (
-    <section className="w-full py-28 bg-stone-50">
+    <section className="w-full py-28 bg-transparent">
       <div className="max-w-3xl mx-auto px-6 text-center flex flex-col items-center gap-8">
         <motion.div
           initial="hidden"
@@ -337,10 +337,25 @@ export default function AboutPage() {
       </section>
 
       {/* Content sections */}
-      <MyStory />
-      <MyInspiration />
-      <MyGoals />
-      <CTASection />
+      <div 
+        className="w-full relative"
+        style={{
+          backgroundImage: "url('/common_bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-white/70 z-0 pointer-events-none" />
+        
+        <div className="relative z-10">
+          <MyStory />
+          <MyInspiration />
+          <MyGoals />
+          <CTASection />
+        </div>
+      </div>
     </div>
   );
 }
