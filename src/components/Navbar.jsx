@@ -40,7 +40,9 @@ const Navbar = () => {
 
           {/* Logo (Centered on mobile, left on desktop) */}
           <div className="flex-1 md:flex-none flex justify-center md:justify-start">
-            <Link to="/home" className="font-serif text-2xl font-bold text-[#1B2621]">MN</Link>
+            <Link to="/home" className="flex items-center">
+              <img src="/favicon.png" alt="Mrunalini Art Logo" className="h-10 w-auto" />
+            </Link>
           </div>
 
           {/* Invisible spacer for mobile flex centering */}

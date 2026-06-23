@@ -101,7 +101,7 @@ export default function AdminLayout() {
         {/* Header */}
         <div className="px-6 pt-8 pb-6 border-b border-amber-300/10">
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-300/80 to-amber-600/60 flex items-center justify-center text-black font-bold text-sm">M</div>
+            <img src="/favicon.png" alt="Admin Logo" className="w-8 h-8 object-contain" />
             <span className="font-serif text-amber-100 text-lg tracking-wide">Mrunalini Admin</span>
           </div>
           <p className="text-amber-300/50 text-xs tracking-widest uppercase pl-11">Artist Dashboard</p>
