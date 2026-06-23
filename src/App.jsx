@@ -5,10 +5,13 @@ import AboutPage from './pages/AboutPage';
 import ArtPage from './pages/ArtPage';
 import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
+import AdminLayout from './components/AdminLayout';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import AdminArtPage from './pages/AdminArtPage';
+import AdminCommissionsPage from './pages/AdminCommissionsPage';
 import Footer from './components/Footer';
 
-/* ─── Layouts ──────────────────────────────────────────── */
+/* ─── Public Layouts ───────────────────────────────────── */
 
 function HomeLayout() {
   return (
@@ -58,9 +61,15 @@ function App() {
         <Route path="/art" element={<ArtLayout />} />
         <Route path="/contact" element={<ContactLayout />} />
 
-        {/* Admin — no navbar/footer */}
+        {/* Admin login — no sidebar */}
         <Route path="/mniwal-admin" element={<AdminLoginPage />} />
-        <Route path="/mniwal-admin/enquiries" element={<AdminDashboardPage />} />
+
+        {/* Admin panel — persistent sidebar layout */}
+        <Route path="/mniwal-admin" element={<AdminLayout />}>
+          <Route path="enquiries" element={<AdminDashboardPage />} />
+          <Route path="art" element={<AdminArtPage />} />
+          <Route path="commissions" element={<AdminCommissionsPage />} />
+        </Route>
 
         {/* Catch-all */}
         <Route path="/:page" element={<HomeLayout />} />
