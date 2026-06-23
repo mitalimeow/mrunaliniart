@@ -1,20 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-/* ─────────────────────────────────────────────
-   Image list — p1.png through p16.png
-───────────────────────────────────────────── */
-const allImages = Array.from({ length: 16 }, (_, i) => `/p${i + 1}.png`);
-
-/* Distribute images across 5 rows */
-const rows = [
-  [allImages[0],  allImages[1],  allImages[2],  allImages[3]],
-  [allImages[4],  allImages[5],  allImages[6],  allImages[7]],
-  [allImages[8],  allImages[9],  allImages[10], allImages[11]],
-  [allImages[12], allImages[13], allImages[14], allImages[15]],
-  [allImages[0],  allImages[4],  allImages[8],  allImages[12]], // curated mix for row 5
-];
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 /* ─────────────────────────────────────────────
    Floating blobs (same as homepage)
@@ -58,13 +46,16 @@ function FloatingBlobs() {
 /* ─────────────────────────────────────────────
    Infinite Carousel Row
 ───────────────────────────────────────────── */
-function InfiniteCarouselRow({ images, direction = 1, speed = 60, rowIndex }) {
+function InfiniteCarouselRow({ artworks, direction = 1, speed = 60, rowIndex }) {
   const [paused, setPaused] = useState(false);
+  
+  if (!artworks || artworks.length === 0) return null;
+
   // Triplicate for seamless looping
-  const looped = [...images, ...images, ...images];
+  const looped = [...artworks, ...artworks, ...artworks];
   const cardW = 340; // px
   const gap    = 24;
-  const totalW = images.length * (cardW + gap);
+  const totalW = artworks.length * (cardW + gap);
 
   return (
     <motion.div
@@ -79,7 +70,7 @@ function InfiniteCarouselRow({ images, direction = 1, speed = 60, rowIndex }) {
       {/* Pause badge */}
       {paused && (
         <div className="absolute right-6 z-20 mt-2">
-          <span className="text-[10px] font-sans uppercase tracking-widest text-[#1B2621]/50 bg-white/60 px-3 py-1 rounded-full backdrop-blur-sm">
+          <span className="text-[10px] font-sans uppercase tracking-widest text-[#1B2621]/50 bg-white/60 px-3 py-1 rounded-full backdrop-blur-sm shadow-sm">
             Paused — click to resume
           </span>
         </div>
@@ -97,7 +88,7 @@ function InfiniteCarouselRow({ images, direction = 1, speed = 60, rowIndex }) {
         // pause via CSS animation-play-state trick through inline style
         {...(paused ? { style: { animationPlayState: 'paused' } } : {})}
       >
-        {looped.map((src, i) => (
+        {looped.map((art, i) => (
           <motion.div
             key={i}
             className="flex-shrink-0 relative overflow-hidden rounded-2xl shadow-md bg-white/80"
@@ -106,11 +97,14 @@ function InfiniteCarouselRow({ images, direction = 1, speed = 60, rowIndex }) {
             transition={{ duration: 0.3 }}
           >
             <img
-              src={src}
-              alt={`Artwork ${(i % images.length) + 1}`}
+              src={`${API_URL}/api/art/image/${art.id}`}
+              alt={art.filename}
               loading="lazy"
-              className="w-full h-[260px] object-cover"
+              className="w-full h-[260px] object-cover bg-stone-100"
               draggable={false}
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
             />
           </motion.div>
         ))}
@@ -167,16 +161,66 @@ function ArtHero() {
 const rowSpeeds  = [55, 70, 50, 65, 58];
 const rowDirections = [1, -1, 1, -1, 1];
 
+function distributeArtworks(artworks) {
+  if (!artworks || artworks.length === 0) return [[], [], [], [], []];
+  
+  const rows = [[], [], [], [], []];
+  const baseCount = Math.floor(artworks.length / 5);
+  const remainder = artworks.length % 5;
+  
+  let currentIndex = 0;
+  for (let i = 0; i < 5; i++) {
+    // Add 1 extra to the last `remainder` rows
+    const count = baseCount + (i >= 5 - remainder ? 1 : 0);
+    for (let j = 0; j < count; j++) {
+      if (currentIndex < artworks.length) {
+        rows[i].push(artworks[currentIndex]);
+        currentIndex++;
+      }
+    }
+  }
+  return rows;
+}
+
 function GallerySection() {
+  const [artworks, setArtworks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/art`) // Safe to call public endpoint to get metadata list
+      .then(res => res.json())
+      .then(data => setArtworks(data || []))
+      .catch(err => console.error("Failed to load gallery artworks", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="relative z-10 w-full py-24 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-stone-400 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (artworks.length === 0) {
+    return (
+      <div className="relative z-10 w-full py-24 flex flex-col items-center justify-center">
+        <p className="font-serif text-2xl text-[#1B2621]/60">Gallery is empty</p>
+      </div>
+    );
+  }
+
+  const rows = distributeArtworks(artworks);
+
   return (
     <section className="relative z-10 w-full py-8 flex flex-col gap-6">
       <p className="text-center text-xs font-sans text-stone-400 tracking-widest uppercase mb-2">
         Click any row to pause · Click again to continue
       </p>
-      {rows.map((rowImages, i) => (
+      {rows.map((rowArtworks, i) => (
         <InfiniteCarouselRow
           key={i}
-          images={rowImages}
+          artworks={rowArtworks}
           direction={rowDirections[i]}
           speed={rowSpeeds[i]}
           rowIndex={i}
