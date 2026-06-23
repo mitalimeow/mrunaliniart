@@ -9,11 +9,11 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 ───────────────────────────────────────────── */
 function FloatingBlobs() {
   const blobs = [
-    { size: 340, x: '5%',  y: '10%', delay: 0,   color: 'rgba(212,175,55,0.06)' },
-    { size: 240, x: '80%', y: '8%',  delay: 1.2, color: 'rgba(74,85,74,0.05)'  },
+    { size: 340, x: '5%', y: '10%', delay: 0, color: 'rgba(212,175,55,0.06)' },
+    { size: 240, x: '80%', y: '8%', delay: 1.2, color: 'rgba(74,85,74,0.05)' },
     { size: 300, x: '65%', y: '45%', delay: 0.6, color: 'rgba(212,175,55,0.04)' },
     { size: 180, x: '15%', y: '70%', delay: 1.8, color: 'rgba(180,160,130,0.06)' },
-    { size: 260, x: '88%', y: '75%', delay: 1,   color: 'rgba(74,85,74,0.04)'  },
+    { size: 260, x: '88%', y: '75%', delay: 1, color: 'rgba(74,85,74,0.04)' },
   ];
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
@@ -48,13 +48,13 @@ function FloatingBlobs() {
 ───────────────────────────────────────────── */
 function InfiniteCarouselRow({ artworks, direction = 1, speed = 60, rowIndex }) {
   const [paused, setPaused] = useState(false);
-  
+
   if (!artworks || artworks.length === 0) return null;
 
   // Triplicate for seamless looping
   const looped = [...artworks, ...artworks, ...artworks];
   const cardW = 340; // px
-  const gap    = 24;
+  const gap = 24;
   const totalW = artworks.length * (cardW + gap);
 
   return (
@@ -125,7 +125,7 @@ function ArtHero() {
           transition={{ duration: 0.7 }}
           className="text-xs font-sans uppercase tracking-[0.35em] text-stone-500"
         >
-          Mrunalini Niwali · Gallery
+          Mrunalini Niwal · Gallery
         </motion.p>
 
         <motion.h1
@@ -158,16 +158,16 @@ function ArtHero() {
 /* ─────────────────────────────────────────────
    Gallery Section
 ───────────────────────────────────────────── */
-const rowSpeeds  = [55, 70, 50, 65, 58];
+const rowSpeeds = [55, 70, 50, 65, 58];
 const rowDirections = [1, -1, 1, -1, 1];
 
 function distributeArtworks(artworks) {
   if (!artworks || artworks.length === 0) return [[], [], [], [], []];
-  
+
   const rows = [[], [], [], [], []];
   const baseCount = Math.floor(artworks.length / 5);
   const remainder = artworks.length % 5;
-  
+
   let currentIndex = 0;
   for (let i = 0; i < 5; i++) {
     // Add 1 extra to the last `remainder` rows
@@ -250,7 +250,7 @@ function ClosingSection() {
             <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
             <div className="w-12 h-px bg-stone-300" />
           </div>
-          <p className="font-sans text-sm text-stone-500 tracking-wide">— Mrunalini Niwali</p>
+          <p className="font-sans text-sm text-stone-500 tracking-wide">— Mrunalini Niwal</p>
         </motion.div>
 
         {/* CTA */}
