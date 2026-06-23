@@ -14,11 +14,11 @@ const BG = {
 /* ── Floating Blobs ───────────────────────────────────────── */
 function FloatingBlobs() {
   const blobs = [
-    { size: 380, x: '3%',  y: '8%',  delay: 0,   color: 'rgba(212,175,55,0.05)' },
-    { size: 260, x: '78%', y: '12%', delay: 1.4, color: 'rgba(74,85,74,0.04)'  },
+    { size: 380, x: '3%', y: '8%', delay: 0, color: 'rgba(212,175,55,0.05)' },
+    { size: 260, x: '78%', y: '12%', delay: 1.4, color: 'rgba(74,85,74,0.04)' },
     { size: 320, x: '60%', y: '52%', delay: 0.7, color: 'rgba(212,175,55,0.04)' },
     { size: 200, x: '18%', y: '72%', delay: 2.0, color: 'rgba(180,160,130,0.05)' },
-    { size: 280, x: '85%', y: '78%', delay: 1.1, color: 'rgba(74,85,74,0.03)'  },
+    { size: 280, x: '85%', y: '78%', delay: 1.1, color: 'rgba(74,85,74,0.03)' },
   ];
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
@@ -127,7 +127,7 @@ function CommissionCard({ commission, index }) {
           </div>
           <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#D4AF37]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
             </svg>
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function CommissionsPage() {
             transition={{ duration: 0.7 }}
             className="text-xs font-sans uppercase tracking-[0.4em] text-stone-400"
           >
-            Mrunalini Niwali · Collector Stories
+            Mrunalini Niwal · Collector Stories
           </motion.p>
 
           <motion.h1
@@ -279,7 +279,7 @@ export default function CommissionsPage() {
             <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
             <div className="w-10 h-px bg-stone-300" />
           </div>
-          <p className="font-sans text-sm text-stone-500 tracking-wide">— Mrunalini Niwali</p>
+          <p className="font-sans text-sm text-stone-500 tracking-wide">— Mrunalini Niwal</p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link
