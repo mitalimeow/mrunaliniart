@@ -11,6 +11,7 @@ import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminArtPage from './pages/AdminArtPage';
 import AdminCommissionsPage from './pages/AdminCommissionsPage';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 /* ─── Public Layouts ───────────────────────────────────── */
 
@@ -19,6 +20,7 @@ function HomeLayout() {
     <div className="min-h-screen w-full relative">
       <Navbar />
       <main><HomePage /></main>
+      <Footer />
     </div>
   );
 }
@@ -38,6 +40,7 @@ function ArtLayout() {
     <div className="min-h-screen w-full relative">
       <Navbar />
       <main><ArtPage /></main>
+      <Footer />
     </div>
   );
 }
@@ -47,6 +50,7 @@ function ContactLayout() {
     <div className="min-h-screen w-full relative">
       <Navbar />
       <main><ContactPage /></main>
+      <Footer />
     </div>
   );
 }
@@ -56,6 +60,7 @@ function CommissionsLayout() {
     <div className="min-h-screen w-full relative">
       <Navbar />
       <main><CommissionsPage /></main>
+      <Footer />
     </div>
   );
 }
@@ -64,6 +69,7 @@ function CommissionsLayout() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomeLayout />} />

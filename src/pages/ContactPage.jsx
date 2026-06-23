@@ -137,8 +137,8 @@ export default function ContactPage() {
           >
             <motion.div variants={fadeUp(0)} className="flex flex-col gap-4">
               <p className="text-xs font-sans uppercase tracking-[0.35em] text-stone-400">Get in Touch</p>
-              <h1 className="font-serif text-6xl md:text-7xl font-bold text-[#1B2621] leading-none">
-                Contact<br /><span className="text-[#4A554A]">Me</span>
+              <h1 className="font-serif text-5xl md:text-7xl font-bold text-[#1B2621] leading-none whitespace-nowrap">
+                Contact <span className="text-[#4A554A]">Me</span>
               </h1>
               <div className="w-16 h-0.5 bg-[#D4AF37]" />
             </motion.div>

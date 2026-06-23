@@ -3,10 +3,94 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
+function EnquiryModal({ enquiry, onClose, onDelete, isDeleting }) {
+  if (!enquiry) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        className="relative w-full max-w-lg max-h-[85vh] rounded-2xl p-8 shadow-2xl flex flex-col"
+        style={{ background: 'rgba(27,38,33,0.95)', border: '1px solid rgba(212,175,55,0.2)' }}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-6 right-6 text-amber-100/50 hover:text-amber-100 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h3 className="font-serif text-2xl text-amber-100 mb-6">Enquiry Details</h3>
+
+        <div className="flex-1 overflow-y-auto space-y-6 pr-2 custom-scrollbar">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-amber-300/40 mb-1">Name</p>
+            <p className="text-amber-100 font-medium break-words">{enquiry.sender_name}</p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-amber-300/40 mb-1">Email</p>
+            <a href={`mailto:${enquiry.sender_email}`} className="text-amber-200/80 hover:text-amber-200 hover:underline break-words">
+              {enquiry.sender_email}
+            </a>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-amber-300/40 mb-1">Date</p>
+            <p className="text-amber-200/60 text-sm">
+              {new Date(enquiry.submitted_at).toLocaleString('en-IN', {
+                dateStyle: 'long', timeStyle: 'short'
+              })}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-amber-300/40 mb-2">Message</p>
+            <div className="bg-black/20 p-4 rounded-xl border border-white/5">
+              <p className="text-amber-100/80 text-sm leading-relaxed whitespace-pre-wrap break-words">
+                {enquiry.message}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-amber-300/10 flex justify-end gap-4">
+          <button
+            onClick={onClose}
+            className="px-5 py-2.5 rounded-xl text-sm font-medium text-amber-100/60 hover:text-amber-100 hover:bg-white/5 transition-colors"
+          >
+            Close
+          </button>
+          <button
+            onClick={() => onDelete(enquiry.id)}
+            disabled={isDeleting}
+            className="px-5 py-2.5 rounded-xl text-sm font-medium bg-red-900/40 text-red-300 hover:bg-red-900/60 border border-red-500/20 transition-colors flex items-center gap-2 disabled:opacity-50"
+          >
+            {isDeleting ? (
+              <div className="w-4 h-4 border-2 border-red-300/50 border-t-transparent rounded-full animate-spin" />
+            ) : null}
+            {isDeleting ? 'Deleting...' : 'Delete Enquiry'}
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function AdminEnquiriesPage() {
   const [enquiries, setEnquiries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState(null);
+  const [selectedEnquiry, setSelectedEnquiry] = useState(null);
 
   const fetchEnquiries = () => {
     setLoading(true);
@@ -30,6 +114,9 @@ export default function AdminEnquiriesPage() {
         credentials: 'include',
       });
       setEnquiries(prev => prev.filter(e => e.id !== id));
+      if (selectedEnquiry?.id === id) {
+        setSelectedEnquiry(null);
+      }
     } catch {
       console.error('Failed to delete enquiry.');
     } finally {
@@ -79,27 +166,32 @@ export default function AdminEnquiriesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -40, scale: 0.95 }}
                 transition={{ delay: i * 0.05, duration: 0.35 }}
-                className="relative rounded-2xl overflow-hidden"
+                className="relative rounded-2xl overflow-hidden cursor-pointer group max-w-full"
                 style={{
                   background: 'rgba(255,255,255,0.06)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
                   border: '1px solid rgba(212, 175, 55, 0.15)',
                 }}
+                onClick={() => setSelectedEnquiry(enq)}
               >
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-1">
+                <div className="p-6 transition-colors group-hover:bg-white/5">
+                  <div className="flex items-start justify-between gap-4 max-w-full">
+                    <div className="flex-1 min-w-0 overflow-hidden">
+                      <div className="flex items-center gap-3 mb-1 max-w-full">
                         <div className="w-8 h-8 rounded-full bg-amber-300/20 flex items-center justify-center text-amber-200 font-serif font-bold text-sm shrink-0">
                           {enq.sender_name?.charAt(0)?.toUpperCase() || '?'}
                         </div>
-                        <div>
-                          <p className="text-amber-100 font-medium text-sm">{enq.sender_name}</p>
-                          <p className="text-amber-200/50 text-xs">{enq.sender_email}</p>
+                        <div className="min-w-0 overflow-hidden">
+                          <p className="text-amber-100 font-medium text-sm truncate">{enq.sender_name}</p>
+                          <p className="text-amber-200/50 text-xs truncate">{enq.sender_email}</p>
                         </div>
                       </div>
-                      <p className="text-amber-100/75 text-sm leading-relaxed mt-3 pl-11">{enq.message}</p>
+                      
+                      <p className="text-amber-100/75 text-sm mt-3 pl-11 break-words line-clamp-2">
+                        {enq.message.length > 120 ? `${enq.message.substring(0, 120)}...` : enq.message}
+                      </p>
+                      
                       <p className="text-amber-300/30 text-xs mt-3 pl-11">
                         {new Date(enq.submitted_at).toLocaleString('en-IN', {
                           dateStyle: 'medium', timeStyle: 'short'
@@ -107,9 +199,12 @@ export default function AdminEnquiriesPage() {
                       </p>
                     </div>
                     <button
-                      onClick={() => handleDelete(enq.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(enq.id);
+                      }}
                       disabled={deletingId === enq.id}
-                      className="shrink-0 p-2 rounded-lg text-red-300/50 hover:text-red-300 hover:bg-red-900/20 transition-all duration-200 disabled:opacity-30"
+                      className="shrink-0 p-2 rounded-lg text-red-300/50 hover:text-red-300 hover:bg-red-900/20 transition-all duration-200 disabled:opacity-30 z-10"
                       title="Delete enquiry"
                     >
                       {deletingId === enq.id ? (
@@ -127,6 +222,18 @@ export default function AdminEnquiriesPage() {
           </AnimatePresence>
         </div>
       )}
+
+      {/* Details Modal */}
+      <AnimatePresence>
+        {selectedEnquiry && (
+          <EnquiryModal
+            enquiry={selectedEnquiry}
+            onClose={() => setSelectedEnquiry(null)}
+            onDelete={handleDelete}
+            isDeleting={deletingId === selectedEnquiry.id}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

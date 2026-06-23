@@ -387,21 +387,7 @@ function FindMeSection() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────────── */
-function HomeFooter() {
-  return (
-    <footer className="w-full py-10 bg-[#1B2621] text-center flex flex-col items-center gap-2">
-      <p className="font-sans text-sm text-white/50 tracking-wide">
-        © 2026 Mrunalini Niwal
-      </p>
-      <p className="font-sans text-xs text-white/30 italic">
-        Created with love, inspired by nature.
-      </p>
-    </footer>
-  );
-}
+
 
 /* ─────────────────────────────────────────────
    PAGE EXPORT
@@ -413,7 +399,6 @@ export default function HomePage() {
       <HeroSection />
       <FeaturedArtSection />
       <FindMeSection />
-      <HomeFooter />
     </div>
   );
 }
