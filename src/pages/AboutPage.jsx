@@ -101,7 +101,7 @@ function MyStory() {
             {/* Decorative frame offset */}
             <div className="absolute -top-4 -right-4 w-full h-full rounded-2xl border border-stone-200 z-0" />
             <motion.img
-              src="/artist1.jpg"
+              src="/public/artist1.jpg"
               alt="Artist portrait"
               className="relative z-10 w-80 md:w-96 h-[480px] object-cover rounded-2xl shadow-xl"
               whileHover={{ scale: 1.02 }}
@@ -131,7 +131,7 @@ function MyInspiration() {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border border-stone-200 z-0" />
             <motion.img
-              src="/artist2.jpg"
+              src="/public/artist2.jpg"
               alt="Nature inspiration"
               className="relative z-10 w-80 md:w-96 h-[480px] object-cover rounded-2xl shadow-xl"
               whileHover={{ scale: 1.02 }}
@@ -234,7 +234,7 @@ function MyGoals() {
           <div className="relative">
             <div className="absolute -top-4 -right-4 w-full h-full rounded-2xl border border-stone-200 z-0" />
             <motion.img
-              src="/artist3.jpg"
+              src="/public/artist3.jpg"
               alt="Artist creating artwork"
               className="relative z-10 w-80 md:w-96 h-[480px] object-cover rounded-2xl shadow-xl"
               whileHover={{ scale: 1.02 }}
